@@ -1,6 +1,6 @@
+from mock import patch
 import re
 from unittest import TestCase
-from mock import patch
 
 __all__ = ["PatchedUnitTest"]
 
