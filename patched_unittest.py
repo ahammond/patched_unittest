@@ -1,3 +1,5 @@
+from inspect import stack as inspect_stack
+from logging import getLogger
 from mock import patch
 import re
 from unittest import TestCase
@@ -109,6 +111,9 @@ class PatchedTestCase(TestCase):
         So... it's probably a good idea if you Don't Do That.
         """
 
+        l = getLogger("{0}.{1}".format(self.__class__.__name__, inspect_stack()[0][3]))
+        l.debug('self.patches: {0!r} patch_args: {1!r}'.format(self.patches, patch_args))
+
         self.assertEquals(len(self.patches[self.__class__.__name__]), len(patch_args),
                 "self.patches[{0!r}] = {1!r}. This is not equal to {2!r}".format(
                     self.__class__.__name__,
@@ -122,6 +127,7 @@ class PatchedTestCase(TestCase):
                 mock_name = "mock_{0}".format(readable_attr)
             else:
                 mock_name = 'mock_{0}_{1}'.format(cls.__name__, readable_attr)
+            l.debug("setting {0!r} to {1!r}".format(mock_name, mock))
             setattr(self, mock_name, mock)
 
     @classmethod
