@@ -110,15 +110,18 @@ class PatchedTestCase(TestCase):
         """
 
         self.assertEquals(len(self.patches[self.__class__.__name__]), len(patch_args),
-                "self.patches[{!r}] = {!r}. This is not equal to {!r}".format(
-                    self.__class__.__name__, self.patches[self.__class__.__name__], patch_args))
+                "self.patches[{0!r}] = {1!r}. This is not equal to {2!r}".format(
+                    self.__class__.__name__,
+                    self.patches.get(self.__class__.__name__, "missing patches for {0!r}". format(self.__class__.__name__)),
+                    patch_args))
+
         for (cls, attr), mock in zip(self.patches[self.__class__.__name__], reversed(patch_args)):
             m = self.pretty_attribute.match(attr)
             readable_attr = m.group('tail') if m else attr
             if cls is None:
-                mock_name = "mock_{}".format(readable_attr)
+                mock_name = "mock_{0}".format(readable_attr)
             else:
-                mock_name = 'mock_{}_{}'.format(cls.__name__, readable_attr)
+                mock_name = 'mock_{0}_{1}'.format(cls.__name__, readable_attr)
             setattr(self, mock_name, mock)
 
     @classmethod
