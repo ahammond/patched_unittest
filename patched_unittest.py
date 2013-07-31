@@ -83,7 +83,7 @@ class PatchedTestCase(TestCase):
 
     __metaclass__ = PatchType
 
-    pretty_attribute = re.compile(r'^(.*\.)?(?P<tail>[^.]+)$')
+    pretty_attribute = re.compile(r"^(.*\.)?(?P<tail>[^.]+)$")
 
     # Keep track of patches.
     patches = {}
@@ -112,7 +112,7 @@ class PatchedTestCase(TestCase):
         """
 
         l = getLogger("{0}.{1}".format(self.__class__.__name__, inspect_stack()[0][3]))
-        l.debug('self.patches: {0!r} patch_args: {1!r}'.format(self.patches, patch_args))
+        l.debug("self.patches: {0!r} patch_args: {1!r}".format(self.patches, patch_args))
 
         self.assertEquals(len(self.patches[self.__class__.__name__]), len(patch_args),
                 "self.patches[{0!r}] = {1!r}. This is not equal to {2!r}".format(
@@ -122,11 +122,9 @@ class PatchedTestCase(TestCase):
 
         for (cls, attr), mock in zip(self.patches[self.__class__.__name__], reversed(patch_args)):
             m = self.pretty_attribute.match(attr)
-            readable_attr = m.group('tail') if m else attr
-            if cls is None:
-                mock_name = "mock_{0}".format(readable_attr)
-            else:
-                mock_name = 'mock_{0}_{1}'.format(cls.__name__, readable_attr)
+            readable_attr = m.group("tail") if m else attr
+            mock_name = "mock_{0}".format(readable_attr) if cls is None \
+                else "mock_{0}_{1}".format(cls.__name__, readable_attr)
             l.debug("setting {0!r} to {1!r}".format(mock_name, mock))
             setattr(self, mock_name, mock)
 
@@ -140,7 +138,7 @@ class PatchedTestCase(TestCase):
 
     @classmethod
     def patch_dict(cls, dict_name, **kwargs):
-        cls.patches.setdefault(cls.__name__, []).append(('dict', dict_name))
+        cls.patches.setdefault(cls.__name__, []).append(("dict", dict_name))
         return patch.dict(dict_name, **kwargs)
 
     @classmethod
