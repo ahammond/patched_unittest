@@ -4,7 +4,7 @@ from mock import patch
 import re
 from unittest2 import TestCase
 
-__all__ = ["PatchedUnitTest"]
+__all__ = ["PatchedTestCase"]
 
 """
 This is an extension of unittest to handle the book-keeping associated
