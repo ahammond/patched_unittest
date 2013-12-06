@@ -3,9 +3,9 @@
 from distutils.core import setup
 
 setup(name='patched_unittest',
-      version='1.1',
+      version='1.2',
       description='Automatically manage house-keeping for class level patching.',
-      requires='mock',
+      install_requires=['mock'],
       author='Andrew Hammond',
       author_email='andrew.george.hammond@gmail.com',
       url='https://github.com/ahammond/patched_unittest',
