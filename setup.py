@@ -3,7 +3,7 @@
 from setuptools import setup
 
 setup(name='patched_unittest',
-      version='1.2',
+      version='1.4',
       description='Automatically manage house-keeping for class level patching.',
       install_requires=['mock'],
       author='Andrew Hammond',
