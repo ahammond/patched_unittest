@@ -2,7 +2,7 @@ from inspect import stack as inspect_stack
 from logging import getLogger
 from mock import patch
 import re
-from unittest import TestCase
+from unittest2 import TestCase
 
 __all__ = ["PatchedUnitTest"]
 
